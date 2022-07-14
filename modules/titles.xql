@@ -9,7 +9,7 @@ xquery version "3.1";
 Declare namespaces
 ==:)
 declare namespace hoax = "http://obdurodon.org/hoax";
-declare namespace hoax-model = "http://www.obdurodon.org/model";
+declare namespace m = "http://www.obdurodon.org/model";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
 (:===
@@ -27,14 +27,14 @@ Declare variable
 declare variable $articles-coll := collection($path-to-data || '/hoax_xml');
 declare variable $articles as element(tei:listPlace)+ := $articles-coll/tei:listPlace;
 
-<hoax-model:titles> 
+<m:titles> 
 {
     for $article in $articles 
     return
-        <hoax-model:title>
+        <m:title>
         { 
             $article//tei:titleStmt/tei:title ! fn:string(.)
         }
-        </hoax-model:title>
+        </m:title>
 }
-</hoax-model:titles>
+</m:titles>

@@ -8,7 +8,7 @@ xquery version "3.1";
 Declare namespaces
 ==:)
 declare namespace hoax = "http://obdurodon.org/hoax";
-declare namespace hoax-model = "http://www.obdurodon.org/model";
+declare namespace m = "http://www.obdurodon.org/model";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
 (:===
@@ -26,7 +26,7 @@ Declare variable
 declare variable $place-coll := doc($path-to-data || '/aux_xml/places.xml');
 declare variable $places as element(tei:place)+ := $place-coll//tei:place;
 
-<hoax-model:places> 
+<m:places> 
 {
     for $place in $places
         let $name as xs:string* := $place/tei:placeName ! string(.)
@@ -35,15 +35,15 @@ declare variable $places as element(tei:place)+ := $place-coll//tei:place;
         let $long as xs:double := substring-after($geo, " ") ! number(.)
         where $geo
     return
-        <hoax-model:place>
-            <hoax-model:name>
+        <m:place>
+            <m:name>
                 {$name}
-            </hoax-model:name>
-            <hoax-model:geo>
-                <hoax-model:lat>{$lat}</hoax-model:lat>
-                <hoax-model:long>{$long}</hoax-model:long>
+            </m:name>
+            <m:geo>
+                <m:lat>{$lat}</m:lat>
+                <m:long>{$long}</m:long>
                 
-            </hoax-model:geo>
-        </hoax-model:place>
+            </m:geo>
+        </m:place>
 }
-</hoax-model:places>
+</m:places>
