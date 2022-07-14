@@ -17,7 +17,7 @@ Declare global variables to path
 declare variable $exist:root as xs:string := 
     request:get-parameter("exist:root", "xmldb:exist:///db/apps");
 declare variable $exist:controller as xs:string := 
-    request:get-parameter("exist:controller", "/pr-app");
+    request:get-parameter("exist:controller", "/05-base-models");
 declare variable $path-to-data as xs:string := 
     $exist:root || $exist:controller || '/data';
 (:===
