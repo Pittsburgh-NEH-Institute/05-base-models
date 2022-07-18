@@ -1,40 +1,29 @@
 xquery version "3.1";
-
-(: 
- : Building on day 02 we go forward with the model to produce a title listing
- :
- :)
-
-(:===
+(:==========
 Declare namespaces
-==:)
-declare namespace hoax = "http://obdurodon.org/hoax";
+==========:)
 declare namespace m = "http://www.obdurodon.org/model";
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 
-(:===
-Declare global variables to path
-===:)
+(:==========
+Declare variables to path
+==========:)
 declare variable $exist:root as xs:string := 
     request:get-parameter("exist:root", "xmldb:exist:///db/apps");
 declare variable $exist:controller as xs:string := 
     request:get-parameter("exist:controller", "/05-base-models");
 declare variable $path-to-data as xs:string := 
     $exist:root || $exist:controller || '/data';
-(:===
-Declare variable
-===:)
+(:==========
+Declare variables
+==========:)
 declare variable $articles-coll := collection($path-to-data || '/hoax_xml');
 declare variable $articles as element(tei:TEI)+ := $articles-coll/tei:TEI;
 
-<m:titles> 
-{
+<m:titles>{
     for $article in $articles 
     return
-        <m:title>
-        { 
-            $article//tei:titleStmt/tei:title ! fn:string(.)
-        }
-        </m:title>
-}
-</m:titles>
+        <m:title>{ 
+            $article/descendant::tei:titleStmt/tei:title ! string()
+        }</m:title>
+}</m:titles>
